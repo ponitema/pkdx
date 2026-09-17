@@ -9,6 +9,9 @@ box/cache/damage_cache.sqlite-shm
 # version管理対象外のスキル出力
 box/**/__no_save.*
 
+# 現在選択中のレギュレーション。ユーザーごとのローカル設定なので共有しない。
+box/regulation.json
+
 # champout 由来の中間 JSON は setup.sh で都度生成 (fork サイズ削減)
 pkdx_patch/009_champions_pokemon/data.json
 pkdx_patch/010_champions_moves/data.json
