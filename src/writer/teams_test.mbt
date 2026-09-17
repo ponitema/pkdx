@@ -31,11 +31,11 @@ test "build_team_document: deterministic markdown output" {
   @debug.assert_eq(md, md2)
   assert_true(md.contains("# ガブリアス軸構築 - 2026-04-06"))
   assert_true(md.contains("## チーム"))
-  assert_true(md.contains("| 1 | ガブリアス |"))
+  assert_true(squash_spaces(md).contains("| 1 | ガブリアス |"))
   assert_true(md.contains("108/130/95/80/85/102"))
   assert_true(md.contains("## 推奨技構成"))
   assert_true(md.contains("### ガブリアス"))
-  assert_true(md.contains("| じしん |"))
+  assert_true(squash_spaces(md).contains("| じしん |"))
   assert_true(!md.contains("## 構築の強み"))
   assert_true(!md.contains("## 構築の弱み・注意点"))
 }
@@ -107,8 +107,8 @@ test "build_team_document: members table uses メモ header" {
   let json = @json.parse(src)
   let doc = build_team_document(json, "ガブリアス", "2026-04-06")
   let md = @markdown.serialize(doc)
-  assert_true(md.contains("| メモ |"))
-  assert_false(md.contains("| 役割 |"))
+  assert_true(squash_spaces(md).contains("| メモ |"))
+  assert_false(squash_spaces(md).contains("| 役割 |"))
 }
 
 ///|
@@ -203,7 +203,7 @@ test "build_team_document: memo with newlines collapsed to single row" {
     let mut count = 0
     for line in lines {
       let line_str = line.to_owned()
-      if line_str.contains("| 1 | ガブリアス |") {
+      if squash_spaces(line_str).contains("| 1 | ガブリアス |") {
         count = count + 1
       }
     }
@@ -341,7 +341,7 @@ test "build_team_document: build data row shows hyphen when member lacks fields"
   let md = @markdown.serialize(doc)
   assert_true(md.contains("## 育成データ"))
   // 2 行目 (ガブリアス) は nature / SP / 実数値すべて "-" で出力される
-  assert_true(md.contains("| 2 | ガブリアス | - | - | - |"))
+  assert_true(squash_spaces(md).contains("| 2 | ガブリアス | - | - | - |"))
 }
 
 ///|
@@ -377,9 +377,9 @@ test "build_team_document: coverage and defense matrix" {
   let doc = build_team_document(json, "A", "2026-04-06")
   let md = @markdown.serialize(doc)
   assert_true(md.contains("## 攻撃カバー率"))
-  assert_true(md.contains("| くさ | ほのお | A | 2.0 |"))
+  assert_true(squash_spaces(md).contains("| くさ | ほのお | A | 2.0 |"))
   assert_true(md.contains("## 防御相性マトリクス"))
-  assert_true(md.contains("| みず |"))
+  assert_true(squash_spaces(md).contains("| みず |"))
 }
 
 ///|

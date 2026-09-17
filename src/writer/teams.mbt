@@ -430,6 +430,7 @@ pub fn build_team_document(
   {
     frontmatter: Some(build_team_frontmatter(json, axis, date, publish~)),
     children: blocks,
+    definitions: [],
     span: s,
   }
 }

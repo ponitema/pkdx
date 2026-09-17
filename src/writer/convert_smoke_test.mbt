@@ -58,7 +58,7 @@ test "convert_smoke: legacy pokemon fixture migrates then renders md" {
   let doc = build_pokemon_document(migrated, "マンムー")
   let md = @markdown.serialize(doc)
   assert_true(md.contains("# マンムー 育成データ"))
-  assert_true(md.contains("| タイプ | こおり/じめん |"))
+  assert_true(squash_spaces(md).contains("| タイプ | こおり/じめん |"))
   assert_true(md.contains("ようき (すばやさ↑ とくこう↓)"))
   assert_true(md.contains("あついしぼう"))
   assert_true(md.contains("こだわりスカーフ"))
